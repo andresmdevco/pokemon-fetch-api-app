@@ -45,7 +45,7 @@ export const PokemonApp = async(element) => {
         loadingParagraph.textConten = 'Cargando el pokemon anterior...';
         pokemonId--;
         renderPokemon(await getPokemonById(pokemonId));
-    })
+    });
 
 
     //! Renderizar el pokemon
