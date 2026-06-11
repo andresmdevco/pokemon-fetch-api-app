@@ -5,7 +5,7 @@ import { getPokemonById } from './actions/get-pokemon-by-id.action';
  * @param {HTMLDivElement} element 
  */
 
-export const PokemonApp = (element) => {
+export const PokemonApp = async(element) => {
 
     document.title = 'Pokemon App';
     const titleElement = document.querySelector('#app-title');
@@ -13,9 +13,34 @@ export const PokemonApp = (element) => {
     // if (titleElement) titleElement.innerHTML = 'Pokemon App';
     titleElement && (titleElement.innerHTML = 'Pokemon App');
     
-    console.log('Hola Mundo');
-    console.log(element);
+    //! Crear los elementos html
+    const loadingParagraph = document.createElement('p');
+    const pokemonImage = document.createElement('img');
+    const nextBtn = document.createElement('button');
+    const prevBtn = document.createElement('button');
 
-    getPokemonById(1);
 
+    //! Configuraciones
+    loadingParagraph.textContent = 'Cargando ...';
+    nextBtn.textContent = 'Siguiente';
+    prevBtn.textContent = 'Anterior';
+
+    element.appendChild(loadingParagraph);
+    element.appendChild(pokemonImage);
+    element.appendChild(nextBtn);
+    element.appendChild(prevBtn);
+
+    //! Listeners de los botones
+
+
+    //! Renderizar el pokemon
+    const renderPokemon = (pokemon) => {
+        pokemonImage.src = pokemon.image;
+        loadingParagraph.textContent = `Pokemon #${pokemon.id} ${pokemon.name}`
+    };
+
+
+    //! Hacer la petición inicial
+
+    renderPokemon(await getPokemonById(1));
 }
