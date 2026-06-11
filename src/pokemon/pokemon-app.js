@@ -7,6 +7,8 @@ import { getPokemonById } from './actions/get-pokemon-by-id.action';
 
 export const PokemonApp = async(element) => {
 
+    let pokemonId = 1;
+
     document.title = 'Pokemon App';
     const titleElement = document.querySelector('#app-title');
 
@@ -31,6 +33,19 @@ export const PokemonApp = async(element) => {
     element.appendChild(prevBtn);
 
     //! Listeners de los botones
+    nextBtn.addEventListener('click', async() => {
+        loadingParagraph.textContent = 'Cargando siguiente pokemon ...';
+        pokemonId++;
+        renderPokemon(await getPokemonById(pokemonId));
+    });
+
+    prevBtn.addEventListener('click', async() => {
+        if (pokemonId === 1) return;
+
+        loadingParagraph.textConten = 'Cargando el pokemon anterior...';
+        pokemonId--;
+        renderPokemon(await getPokemonById(pokemonId));
+    })
 
 
     //! Renderizar el pokemon
@@ -42,5 +57,5 @@ export const PokemonApp = async(element) => {
 
     //! Hacer la petición inicial
 
-    renderPokemon(await getPokemonById(1));
+    renderPokemon(await getPokemonById(pokemonId));
 }
